@@ -1,4 +1,4 @@
-import { Layout, Menu, MenuProps } from "antd";
+import { Image, Layout, Menu, MenuProps } from "antd";
 
 import Manuscripts from "../manuscripts";
 import Question from "../questions";
@@ -20,28 +20,40 @@ export default function Root() {
   return (
     <Layout>
       <Sider>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "white",
+          }}
+        >
+          <Image
+            src={require("../../assets/images/logo.png")}
+            style={{ width: 100, height: 40 }}
+          ></Image>
+        </div>
         <Menu
+          style={{ height: "100vh" }}
           items={menuItems}
+          defaultSelectedKeys={[key]}
           onClick={({ key }) => {
             setKey(key);
           }}
         />
       </Sider>
-      <Content style={{ height: "100vh" }}>
-        <CustomContent itemKey={key}></CustomContent>
-      </Content>
+      <CustomContent itemKey={key}></CustomContent>
     </Layout>
   );
 }
 
 function CustomContent(props: { itemKey: string }) {
   return (
-    <>
+    <Content>
       {props.itemKey === RouterUrl.manuscripts && <Manuscripts></Manuscripts>}
       {props.itemKey === RouterUrl.questions && <Question></Question>}
       {props.itemKey === RouterUrl.liveBroadcast && (
         <LiveBroadcast></LiveBroadcast>
       )}
-    </>
+    </Content>
   );
 }

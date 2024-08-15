@@ -1,24 +1,29 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  redirect,
-} from "react-router-dom";
-import LiveBroadcast from "./liveBroadcast";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./login";
-import Manuscripts from "./manuscripts";
-import Question from "./questions";
 import Root from "./root";
 import { RouterUrl } from "./routesData";
+import { ConfigProvider, ThemeConfig } from "antd";
 
 const router = createBrowserRouter([
   { path: "/", element: <Root></Root> },
   { path: RouterUrl.login, element: <Login></Login> },
 ]);
 
-function loadlive() {
-  return redirect("/liveBroadcast");
-}
-
+const theme: ThemeConfig = {
+  components: {
+    Menu: {
+      itemColor: "red",
+      itemSelectedColor: "yellow",
+      itemBorderRadius: 0,
+    },
+  },
+};
 export default function Router() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <ConfigProvider
+    // theme={theme}
+    >
+      <RouterProvider router={router}></RouterProvider>
+    </ConfigProvider>
+  );
 }
