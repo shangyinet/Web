@@ -11,10 +11,9 @@ export const RouterUrl = {
 
 const loader = () => {
   const loginState = UserStore.loginState;
-  console.log("------------>>", loginState);
 
   if (!loginState) {
-    return redirect("/login");
+    return redirect(RouterUrl.login);
   }
   return null;
 };

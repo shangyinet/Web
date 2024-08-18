@@ -22,6 +22,7 @@ export function CustomLayout() {
       <Sider>
         <div style={logoDivStyle}>
           <Image
+          preview={false}
             src={require("/Users/shangyinet/Desktop/Web/Web/xing/src/asstes/images/logo.png")}
             style={{ width: 100, height: 40 }}
           ></Image>
