@@ -1,3 +1,4 @@
+// 字号、字体
 const ThemeFonts = {
   15: 15,
 };

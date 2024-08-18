@@ -1,59 +1,24 @@
-import { Image, Layout, Menu, MenuProps } from "antd";
+import { Image, Layout, Menu, MenuProps, Switch } from "antd";
 
-import Manuscripts from "../manuscripts";
-import Question from "../questions";
-import LiveBroadcast from "../liveBroadcast";
-import { RouterUrl } from "../routesData";
+import Manuscripts from "../../manuscript";
+import Question from "../../question";
+import LiveBroadcast from "../../liveBroadcast";
 import { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { UserStore } from "../../store/userStore";
+import { CustomLayout } from "./components/customLayout";
+import { RouterUrl } from "../../config/routeConfig";
+import { observer } from "mobx-react-lite";
 
 const { Content, Sider } = Layout;
 
-type MenuItem = Required<MenuProps>["items"][number];
-const menuItems: MenuItem[] = [
-  { key: RouterUrl.manuscripts, label: "文案" },
-  { key: RouterUrl.questions, label: "问答" },
-  { key: RouterUrl.liveBroadcast, label: "直播" },
-];
-
-export default function Root() {
-  const [key, setKey] = useState(RouterUrl.manuscripts);
+function Root() {
   return (
-    <Layout>
-      <Sider>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "white",
-          }}
-        >
-          <Image
-            src={require("../../assets/images/logo.png")}
-            style={{ width: 100, height: 40 }}
-          ></Image>
-        </div>
-        <Menu
-          style={{ height: "100vh" }}
-          items={menuItems}
-          defaultSelectedKeys={[key]}
-          onClick={({ key }) => {
-            setKey(key);
-          }}
-        />
-      </Sider>
-      <CustomContent itemKey={key}></CustomContent>
-    </Layout>
+    <CustomLayout></CustomLayout>
+    // <>
+    //   {UserStore.loginState && <CustomLayout></CustomLayout>}
+    //   {!UserStore.loginState && <Navigate to={RouterUrl.login}></Navigate>}
+    // </>
   );
 }
-
-function CustomContent(props: { itemKey: string }) {
-  return (
-    <Content>
-      {props.itemKey === RouterUrl.manuscripts && <Manuscripts></Manuscripts>}
-      {props.itemKey === RouterUrl.questions && <Question></Question>}
-      {props.itemKey === RouterUrl.liveBroadcast && (
-        <LiveBroadcast></LiveBroadcast>
-      )}
-    </Content>
-  );
-}
+export default observer(Root);
